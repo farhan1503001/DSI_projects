@@ -36,6 +36,7 @@ if __name__ == '__main__':
                 product_list.append(value)
         elif cmd==2:
             name,type=edition()
+            count=1
             for item in product_list:
                 rt=match_checker(item,name,type)
                 if rt==-1:
@@ -52,16 +53,21 @@ if __name__ == '__main__':
                                 pass
                             else:
                                 item.set_consump_day(ch_day)
+                                item.set_tot_consump(ch_time)
+                                curr.execute('update product set total_day_consumption=?,total_consumption=? where id=?',(ch_day,ch_time,count))
+                                connection.commit()
                         else:
                             item.set_tot_consump(ch_time)
                     else:
-                        pass
+                       pass
                     if input('Change the ratings? if yes press y else anything:  ')=='y':
                         ch_rating=update_rating(item)
                         if ch_rating is None:
                             pass
                         else:
                             item.set_rating(ch_rating)
+                            curr.execute('update product set total_rating=? where id=?',(ch_rating,count))
+                            connection.commit()
                     else:
                         pass
 
@@ -72,25 +78,33 @@ if __name__ == '__main__':
                         else:
                             item.set_end_date(ch_end_date_status)
                             item.set_status(False)
+                            curr.execute('update product set end_date=?,status=? where id=?',(ch_end_date_status,item.get_status(),count))
+                            connection.commit()
                     else:
                         pass
                     break
 
                 else:
-                    pass
+                    count=count+1
         elif cmd==3:
             name,type=deletion()
+            counter=1
             for item in product_list:
                 result=match_checker(item,name,type)
                 if result=='matched':
                     if input('Do you want to delete it? if yes press y :')=='y':
-                        item.set_name=''
-                        item.set_start_date=''
-                        item.set_end_date=''
-                        item.set_rating=''
-                    
+                        item.set_name('')
+                        item.set_start_date('')
+                        item.set_end_date('')
+                        item.set_rating(0)
+                        item.set_type('')
+                        curr.execute('update product set name=?,type=?,start_date=?,end_date=?,total_rating=? where id=?',('','','','',0,count))
+                        connection.commit()
                     else:
                         pass
+                else:
+                    counter=counter+1
+                        
             
         elif cmd==4:
             if input('Do you want to view elements by type? if yes press y: ')=='y':
@@ -104,7 +118,7 @@ if __name__ == '__main__':
         else:
             print('Operation Terminated.Breaking.....')
             time.sleep(3)
-            '''
+            
             for item in product_list:
                 print(item.get_name(),item.get_type(),item.get_start_date(),item.get_end_date(),item.get_tot_consump(),item.get_rating(),item.get_consump_day(),item.get_status())
-            '''    
+            
