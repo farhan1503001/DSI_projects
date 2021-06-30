@@ -1,7 +1,7 @@
 import sqlite3
 from sqlite3.dbapi2 import connect
 from display import display_view,oneview
-from deletion import deletion
+from deletion import deletion,del_match_checker
 from product import Product
 from addition import addition
 from edition import change_add_date, edition, match_checker, update_consume_time,update_rating
@@ -18,7 +18,7 @@ if len(temp_list)>0:
         product_list.append(p)
 if __name__ == '__main__':
     while(True):
-        print('For addition input 1, for editing input 2, for deleting entry, 4 for display ')
+        print('For addition input 1, for editing input 2, 3 for deleting entry, 4 for display,5 for overview ')
         cmd=input('Enter command : ')
         if cmd.isdigit():
             cmd=int(cmd)
@@ -90,7 +90,7 @@ if __name__ == '__main__':
             name,type=deletion()
             counter=1
             for item in product_list:
-                result=match_checker(item,name,type)
+                result=del_match_checker(item,name,type)
                 if result=='matched':
                     if input('Do you want to delete it? if yes press y :')=='y':
                         item.set_name('')
@@ -98,7 +98,7 @@ if __name__ == '__main__':
                         item.set_end_date('')
                         item.set_rating(0)
                         item.set_type('')
-                        curr.execute('update product set name=?,type=?,start_date=?,end_date=?,total_rating=? where id=?',('','','','',0,count))
+                        curr.execute('update product set name=?,type=?,start_date=?,end_date=?,total_rating=? where id=?',('','','','',0,counter))
                         connection.commit()
                     else:
                         pass
@@ -115,10 +115,9 @@ if __name__ == '__main__':
             for item in product_list:
                 print(item.get_name(),item.get_type(),item.get_start_date(),item.get_end_date(),item.get_tot_consump(),item.get_rating(),item.get_consump_day(),item.get_status())
             '''
+        elif cmd==5:
+
         else:
             print('Operation Terminated.Breaking.....')
             time.sleep(3)
-            
-            for item in product_list:
-                print(item.get_name(),item.get_type(),item.get_start_date(),item.get_end_date(),item.get_tot_consump(),item.get_rating(),item.get_consump_day(),item.get_status())
             

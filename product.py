@@ -38,4 +38,6 @@ class Product:
         self.__editable=value
     def get_type(self):
         return self.__type
+    def set_type(self,value):
+        self.__type=value
         
