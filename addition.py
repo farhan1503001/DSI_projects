@@ -1,6 +1,9 @@
 import datetime
+import sqlite3
 from product import Product
 import time
+connection=sqlite3.connect('consumable.sqlite3')
+curr=connection.cursor()
 def validate(string):
     try:
         datetime.datetime.strptime(string, '%Y-%m-%d')
@@ -117,5 +120,7 @@ def addition():
                 return 0
             else:
                 pass
-    p=Product(name,start_date,end_date,consump_time,rating,tot_consump_day,type,status)
+    p=Product(name,type,start_date,end_date,consump_time,rating,tot_consump_day,status)
+    
+    connection.close()
     return p

@@ -19,3 +19,5 @@ def del_match_checker(item,name,type):
         if item.get_type() == type:
             print('Product Name: '+item.get_name()+' Type: '+type+' Found')
             return 'matched'
+    else:
+        pass

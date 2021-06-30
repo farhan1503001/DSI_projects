@@ -1,5 +1,5 @@
 class Product:
-    def __init__(self,name,start_date,end_date,tot_consump,rating,tot_day_consump,type,status=True):
+    def __init__(self,name,type,start_date,end_date,tot_consump,rating,tot_day_consump,status=True):
         self.__name=name
         self.__start_date=start_date
         self.__end_date=end_date

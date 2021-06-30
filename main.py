@@ -1,4 +1,6 @@
-from display import display_view
+import sqlite3
+from sqlite3.dbapi2 import connect
+from display import display_view,oneview
 from deletion import deletion
 from product import Product
 from addition import addition
@@ -7,21 +9,30 @@ import datetime
 import time
 import difflib
 product_list = list()
-
-
+connection=sqlite3.connect('consumable.sqlite3')
+curr=connection.cursor()
+temp_list=curr.execute('select * from product').fetchall()
+if len(temp_list)>0:
+    for item in temp_list:
+        p=Product(item[1],item[2],item[3],item[4],item[5],item[6],item[7],item[8])
+        product_list.append(p)
 if __name__ == '__main__':
     while(True):
-        print('For addition input 1, for editing input 2, for display 3 ')
+        print('For addition input 1, for editing input 2, for deleting entry, 4 for display ')
         cmd=input('Enter command : ')
         if cmd.isdigit():
             cmd=int(cmd)
         else:
-            break
+            print('Input DIGITS correctly please!')
         if cmd == 1:
             value=addition()
             if value==0:
                 pass
             else:
+                curr.execute('insert into product(name,type,start_date,end_date,total_consumption,total_rating,total_day_consumption,status) values(?,?,?,?,?,?,?,?)',
+                (value.get_name(),value.get_type(),value.get_start_date(),value.get_end_date(),
+                value.get_tot_consump(),value.get_rating(),value.get_consump_day(),value.get_status()))
+                connection.commit()
                 product_list.append(value)
         elif cmd==2:
             name,type=edition()
@@ -82,7 +93,10 @@ if __name__ == '__main__':
                         pass
             
         elif cmd==4:
-            display_view(product_list)
+            if input('Do you want to view elements by type? if yes press y: ')=='y':
+              display_view(product_list)
+            else:
+                oneview(product_list)
             '''
             for item in product_list:
                 print(item.get_name(),item.get_type(),item.get_start_date(),item.get_end_date(),item.get_tot_consump(),item.get_rating(),item.get_consump_day(),item.get_status())
@@ -90,3 +104,7 @@ if __name__ == '__main__':
         else:
             print('Operation Terminated.Breaking.....')
             time.sleep(3)
+            '''
+            for item in product_list:
+                print(item.get_name(),item.get_type(),item.get_start_date(),item.get_end_date(),item.get_tot_consump(),item.get_rating(),item.get_consump_day(),item.get_status())
+            '''    

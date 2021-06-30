@@ -1,5 +1,6 @@
 import time
 from product import Product
+import difflib
 def display_view(product_list):
     while(True):
         print('For view press 1 for book,2 for series,3 for movie')
@@ -25,7 +26,7 @@ def display_view(product_list):
                     if item.get_type()==section:
                         print(item.get_name(),item.get_type(),item.get_start_date(),item.get_end_date(),
                         item.get_tot_consump(),item.get_rating(),item.get_consump_day(),item.get_status())
-                        break
+                        
             else:
                 print('Enter between 1,2,3')
         else:
@@ -36,6 +37,21 @@ def display_view(product_list):
                 return
             else:
                 pass
+def oneview(product_list):
+    name=input('Enter the name to search: ')
+    flag=False
+    for item in product_list:
+        if difflib.SequenceMatcher(None,item.get_name(),name).ratio()>=0.86:
+            print(item.get_name(),item.get_type(),item.get_start_date(),item.get_end_date(),
+                item.get_tot_consump(),item.get_rating(),item.get_consump_day(),item.get_status())
+            flag=True
+            break
+    if flag:
+        return
+    else:
+        print('Not found')
+        time.sleep(3)
+        return
                 
 
 
