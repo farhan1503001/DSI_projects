@@ -1,3 +1,4 @@
+from deletion import deletion
 from product import Product
 from addition import addition
 from edition import change_add_date, edition, match_checker, update_consume_time,update_rating
@@ -57,7 +58,7 @@ if __name__ == '__main__':
                         if ch_end_date_status is None:
                             pass
                         else:
-                            item.set_end_date(ch_end_date_status[0])
+                            item.set_end_date(ch_end_date_status)
                             item.set_status(False)
                     else:
                         pass
@@ -65,10 +66,29 @@ if __name__ == '__main__':
 
                 else:
                     pass
-            
         elif cmd==3:
+            name,type=deletion()
+            for item in product_list:
+                result=match_checker(item,name,type)
+                if result=='matched':
+                    if input('Do you want to delete it? if yes press y :')=='y':
+                        item.set_name=''
+                        item.set_start_date=''
+                        item.set_end_date=''
+                        item.set_rating=''
+                    
+                    else:
+                        pass
+            
+        elif cmd==4:
+            view_command_test=input('Which type you wanna see? (1:book,2:series,3:movie')
+            if view_command_test.isdigit():
+                view_command=view_command_test
+            else:
+            '''
             for item in product_list:
                 print(item.get_name(),item.get_type(),item.get_start_date(),item.get_end_date(),item.get_tot_consump(),item.get_rating(),item.get_consump_day(),item.get_status())
+            '''
         else:
             print('Operation Terminated.Breaking.....')
             time.sleep(3)
