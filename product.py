@@ -18,7 +18,7 @@ class Product:
         self.__start_date=value
     def get_end_date(self):
         return self.__end_date
-    def set_name(self,value):
+    def set_end_date(self,value):
         self.__end_date=value
     def get_tot_consump(self):
         return self.__tot_consump

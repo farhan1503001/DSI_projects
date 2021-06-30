@@ -1,6 +1,6 @@
 from product import Product
 from addition import addition
-from edition import edition, match_checker
+from edition import change_add_date, edition, match_checker, update_consume_time,update_rating
 import datetime
 import time
 import difflib
@@ -10,7 +10,11 @@ product_list = list()
 if __name__ == '__main__':
     while(True):
         print('For addition input 1, for editing input 2, for display 3 ')
-        cmd=int(input('Enter command : '))
+        cmd=input('Enter command : ')
+        if cmd.isdigit():
+            cmd=int(cmd)
+        else:
+            break
         if cmd == 1:
             value=addition()
             if value==0:
@@ -25,8 +29,40 @@ if __name__ == '__main__':
                     print('Sorry this consumable is not editable')
                     break
                 elif rt=='matched':
-                    changable=item
+                    if input('Change consumptime(hours)? if yes press y else anything :')=='y':
+                        ch_time=update_consume_time(item)
+                        if ch_time is None:
+                            continue
+                        if input('Add consumption day? if yes press y else anything:  ')=='y':
+                            ch_day=item.get_consump_day()+1
+                            if ch_day is None:
+                                pass
+                            else:
+                                item.set_consump_day(ch_day)
+                        else:
+                            item.set_tot_consump(ch_time)
+                    else:
+                        pass
+                    if input('Change the ratings? if yes press y else anything:  ')=='y':
+                        ch_rating=update_rating(item)
+                        if ch_rating is None:
+                            pass
+                        else:
+                            item.set_rating(ch_rating)
+                    else:
+                        pass
+
+                    if input('Add consumption end date? if yes press y else anything: ')=='y':
+                        ch_end_date_status=change_add_date(item)
+                        if ch_end_date_status is None:
+                            pass
+                        else:
+                            item.set_end_date(ch_end_date_status[0])
+                            item.set_status(False)
+                    else:
+                        pass
                     break
+
                 else:
                     pass
             
