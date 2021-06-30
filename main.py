@@ -1,3 +1,4 @@
+from display import display_view
 from deletion import deletion
 from product import Product
 from addition import addition
@@ -81,10 +82,7 @@ if __name__ == '__main__':
                         pass
             
         elif cmd==4:
-            view_command_test=input('Which type you wanna see? (1:book,2:series,3:movie')
-            if view_command_test.isdigit():
-                view_command=view_command_test
-            else:
+            display_view(product_list)
             '''
             for item in product_list:
                 print(item.get_name(),item.get_type(),item.get_start_date(),item.get_end_date(),item.get_tot_consump(),item.get_rating(),item.get_consump_day(),item.get_status())

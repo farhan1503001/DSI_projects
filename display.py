@@ -1,2 +1,41 @@
+import time
 from product import Product
 def display_view(product_list):
+    while(True):
+        print('For view press 1 for book,2 for series,3 for movie')
+        type=input('Enter the type you want to see')
+        if type.isdigit():
+            if int(type)==1:
+                section='book'
+                for item in product_list:
+                    if item.get_type()==section:
+                        print(item.get_name(),item.get_type(),item.get_start_date(),item.get_end_date(),
+                        item.get_tot_consump(),item.get_rating(),item.get_consump_day(),item.get_status())
+                        break
+            elif int(type)==2:
+                section='series'
+                for item in product_list:
+                    if item.get_type()==section:
+                        print(item.get_name(),item.get_type(),item.get_start_date(),item.get_end_date(),
+                        item.get_tot_consump(),item.get_rating(),item.get_consump_day(),item.get_status())
+                        break
+            elif int(type)==3:
+                section='movie'
+                for item in product_list:
+                    if item.get_type()==section:
+                        print(item.get_name(),item.get_type(),item.get_start_date(),item.get_end_date(),
+                        item.get_tot_consump(),item.get_rating(),item.get_consump_day(),item.get_status())
+                        break
+            else:
+                print('Enter between 1,2,3')
+        else:
+            print('Follow the instructions to see')
+            time.sleep(2)
+            cmd=input('Do you want to abort the operation if yes type yes')
+            if cmd.lower()=='yes':
+                return
+            else:
+                pass
+                
+
+
