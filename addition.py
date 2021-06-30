@@ -69,8 +69,8 @@ def addition():
         if temp_con_time=='':
             consump_time=0
             break
-        elif temp_con_time.isdigit():
-            consump_time=int(temp_con_time)
+        elif temp_con_time.replace('.','1').isdigit():
+            consump_time=float(temp_con_time)
             break
         else:
             print('Please input consumption hours in numbers correctly')
