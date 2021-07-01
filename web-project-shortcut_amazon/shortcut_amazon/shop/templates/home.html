@@ -1,0 +1,28 @@
+{% extends 'base.html' %} 
+<head>
+
+</head>
+<body>
+{% block content %} 
+<style>  
+    .container{  
+    text-align: center;  
+     
+    width: 300px;  
+    height: 200px;  
+    padding-top: 375px;  
+    }  
+    #btn{  
+    font-size: 45px;  
+    }  
+</style>
+<div class='container'>
+    <button id='btn1' class='btn-primary btn-lg'>Go to Shop Page</button>
+    <script type="text/javascript">
+        document.getElementById("btn1").onclick = function () {
+            location.href = "{% url 'shopping' %}";
+        };
+    </script>
+</div>
+{% endblock %}
+</body>
