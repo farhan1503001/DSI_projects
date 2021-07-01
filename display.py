@@ -56,6 +56,8 @@ def oneview(product_list):
 
 
 def overview(product_list):
+    #Can be easily performed using sql query
+    # tot_consump: select sum(total_consumption_days) from product where product.type!='' group by type
     #Consumption_hours
     tot_case=0
     book_case=0
@@ -71,7 +73,7 @@ def overview(product_list):
             movie_case=movie_case+item.get_tot_consump()
     print('Total consumption hours','Book','series','movie')
     print('.................................................')
-    print(tot_case,book_case,series_case,movie_case)
+    print(tot_case,"  ",book_case,"  ",series_case,"  ",movie_case)
     print('\n')
     tot_case=0
     book_case=0
@@ -88,7 +90,7 @@ def overview(product_list):
             movie_case=movie_case+item.get_consump_day()
     print('Total consumption days','Book','series','movie')
     print('.................................................')
-    print(tot_case,book_case,series_case,movie_case)
+    print(tot_case,"  ",book_case,"  ",series_case,"  ",movie_case)
     print('\n')
 
     tot_case=0.
@@ -101,8 +103,9 @@ def overview(product_list):
     series=0
     movie=0
     for item in product_list:
-        tot_case=tot_case+item.get_rating()
-        total=total+1
+        if item.get_type()!='':
+            tot_case=tot_case+item.get_rating()
+            total=total+1
         if item.get_type()=='book':
             book_case=book_case+item.get_rating()
             book=book+1
@@ -114,11 +117,11 @@ def overview(product_list):
             movie=movie+1
     print('Average Rating','Book','series','movie')
     print('.................................................')
-    print(tot_case/total,book_case/book,series_case/series,movie_case/movie)
+    print(tot_case/total,"   ",book_case/book,"   ",series_case/series,"   ",movie_case/movie)
     print('\n')
-    print('Number of Products','Books','serieses','movies')
+    print('No.Products','Books','serieses','movies')
     print('.................................................')
-    print(total,book,series,movie)
+    print(total,"  ",book,"   ",series,"   ",movie)
     print('\n')
 
         

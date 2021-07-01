@@ -49,24 +49,28 @@ def addition():
                     return 0
                 else:
                     pass
-     #Loop for starting date
+     #Loop for Ending date. End date has to bigger from start and valid 
     while(True):
-        temp_date = str(input('Enter Ending date(yyyy/mm/dd):  '))
-        if temp_date == '':
-            end_date = ''
-            break
-        else:
-            if validate(temp_date):
-                end_date = temp_date
-                status=False
+        if start_date!='':
+            temp_date = str(input('Enter Ending date(yyyy/mm/dd):  '))
+            if temp_date == '':
+                end_date = ''
                 break
             else:
-                print('End date is in incorrect format type again')
-                cmd=input('Do you want to abort the operation if yes type yes')
-                if cmd.lower()=='yes':
-                    return 0
+                if validate(temp_date) and (datetime.datetime.strptime(temp_date,'%Y-%m-%d')>=(datetime.datetime.strptime(start_date,'%Y-%m-%d'))):
+                    end_date = temp_date
+                    status=False
+                    break
                 else:
-                    pass
+                    print('End date is in incorrect format type again')
+                    cmd=input('Do you want to abort the operation if yes type yes')
+                    if cmd.lower()=='yes':
+                        return 0
+                    else:
+                        pass
+        else:
+            print('Insert start date first: ')
+
     while(True):
         temp_con_time=input('Enter consumption time(in hours): ')
         if temp_con_time=='':

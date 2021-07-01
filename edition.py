@@ -71,11 +71,12 @@ def update_rating(item):
 def change_add_date(item):
      while(True):
         temp_date = str(input('Enter Ending date(yyyy-mm-dd):  '))
-        if validate(temp_date):
+        if validate(temp_date) and (datetime.datetime.strptime(temp_date,'%Y-%m-%d')>=(datetime.datetime.strptime(item.get_start_date(),'%Y-%m-%d'))):
             end_date = temp_date
             return end_date
         else:
             print('End date is in incorrect format type again')
+            print('Ending cannot be earlier than starting date!!!')
             cmd=input('Do you want to abort the operation if yes type yes')
             if cmd.lower()=='yes':
                 return None
