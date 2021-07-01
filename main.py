@@ -116,8 +116,8 @@ if __name__ == '__main__':
                 print(item.get_name(),item.get_type(),item.get_start_date(),item.get_end_date(),item.get_tot_consump(),item.get_rating(),item.get_consump_day(),item.get_status())
             '''
         elif cmd==5:
-
+            overview(product_list)
         else:
             print('Operation Terminated.Breaking.....')
             time.sleep(3)
-            
+            break

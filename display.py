@@ -1,5 +1,6 @@
 import time
 from product import Product
+import sqlite3
 import difflib
 def display_view(product_list):
     while(True):
@@ -52,6 +53,75 @@ def oneview(product_list):
         print('Not found')
         time.sleep(3)
         return
-                
 
+
+def overview(product_list):
+    #Consumption_hours
+    tot_case=0
+    book_case=0
+    series_case=0
+    movie_case=0
+    for item in product_list:
+        tot_case=tot_case+item.get_tot_consump()
+        if item.get_type()=='book':
+            book_case=book_case+item.get_tot_consump()
+        elif item.get_type()=='series':
+            book_case=book_case+item.get_tot_consump()
+        elif item.get_type()=='movie':
+            movie_case=movie_case+item.get_tot_consump()
+    print('Total consumption hours','Book','series','movie')
+    print('.................................................')
+    print(tot_case,book_case,series_case,movie_case)
+    print('\n')
+    tot_case=0
+    book_case=0
+    series_case=0
+    movie_case=0
+    item=None
+    for item in product_list:
+        tot_case=tot_case+item.get_tot_consump()
+        if item.get_type()=='book':
+            book_case=book_case+item.get_consump_day()
+        elif item.get_type()=='series':
+            book_case=book_case+item.get_consump_day()
+        elif item.get_type()=='movie':
+            movie_case=movie_case+item.get_consump_day()
+    print('Total consumption days','Book','series','movie')
+    print('.................................................')
+    print(tot_case,book_case,series_case,movie_case)
+    print('\n')
+
+    tot_case=0.
+    book_case=0.0
+    series_case=0.0
+    movie_case=0.0
+    item=None
+    total=0
+    book=0
+    series=0
+    movie=0
+    for item in product_list:
+        tot_case=tot_case+item.get_rating()
+        total=total+1
+        if item.get_type()=='book':
+            book_case=book_case+item.get_rating()
+            book=book+1
+        elif item.get_type()=='series':
+            book_case=book_case+item.get_rating()
+            series=series+1
+        elif item.get_type()=='movie':
+            movie_case=movie_case+item.get_rating()
+            movie=movie+1
+    print('Average Rating','Book','series','movie')
+    print('.................................................')
+    print(tot_case/total,book_case/book,series_case/series,movie_case/movie)
+    print('\n')
+    print('Number of Products','Books','serieses','movies')
+    print('.................................................')
+    print(total,book,series,movie)
+    print('\n')
+
+        
+
+    
 
