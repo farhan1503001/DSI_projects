@@ -4,7 +4,9 @@ from addition import validate
 import datetime
 import difflib
 
-
+#base edition function 
+#here our edit function takes names of product as name 
+#then ask you to confirm type
 def edition():
     print('welcome to edition part')
     print('........................')
@@ -18,7 +20,7 @@ def edition():
         type = 'movie'
     return name, type
 
-
+#Checking match between two strings our inputted donot have to be completely similar to the product name
 def match_checker(item, name, type):
     if difflib.SequenceMatcher(None, item.get_name(), name).ratio() >= 0.80:
         if item.get_type() == type:
@@ -28,14 +30,14 @@ def match_checker(item, name, type):
             else:
                 return -1
 
-
+#Updating consuming time
 def update_consume_time(item):
     while(True):
         temp_con_time = input('Enter new consumption time(in hours): ')
         if temp_con_time == '':
             consump_time = 0
             break
-        elif temp_con_time.replace('.', '1').isdigit():
+        elif temp_con_time.replace('.', '1').isdigit():#checking if input is number or not
             consump_time = float(temp_con_time)
             break
         else:
@@ -48,7 +50,7 @@ def update_consume_time(item):
                 pass
     return consump_time
 
-
+#For updating rating
 def update_rating(item):
     while(True):
         temp_rating = input('Enter new personal ratings(0-10): ')
@@ -67,10 +69,11 @@ def update_rating(item):
                 return None
             else:
                 pass
-
+#For changing date/adding end date
 def change_add_date(item):
      while(True):
         temp_date = str(input('Enter Ending date(yyyy-mm-dd):  '))
+        #special checking is done to see if ending date greater than starting date
         if validate(temp_date) and (datetime.datetime.strptime(temp_date,'%Y-%m-%d')>=(datetime.datetime.strptime(item.get_start_date(),'%Y-%m-%d'))):
             end_date = temp_date
             return end_date
